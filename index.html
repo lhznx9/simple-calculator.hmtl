@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Minimalista</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .calculadora {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 260px;
+        }
+        #display {
+            width: 100%;
+            height: 50px;
+            font-size: 24px;
+            text-align: right;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: none;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+        .teclado {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        button {
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #f4f4f4;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover { background: #e0e0e0; }
+        button.operador { color: #ff9500; font-weight: bold; }
+        button.igual { background: #ff9500; color: white; grid-column: span 2; }
+    </style>
+</head>
+<body>
+
+<div class="calculadora">
+    <input type="text" id="display" disabled>
+    <div class="teclado">
+        <button onclick="limpar()">C</button>
+        <button onclick="adicionar('/')" class="operador">/</button>
+        <button onclick="adicionar('*')" class="operador">×</button>
+        <button onclick="deletar()">⌫</button>
+        
+        <button onclick="adicionar('7')">7</button>
+        <button onclick="adicionar('8')">8</button>
+        <button onclick="adicionar('9')">9</button>
+        <button onclick="adicionar('-')" class="operador">-</button>
+        
+        <button onclick="adicionar('4')">4</button>
+        <button onclick="adicionar('5')">5</button>
+        <button onclick="adicionar('6')">6</button>
+        <button onclick="adicionar('+')" class="operador">+</button>
+        
+        <button onclick="adicionar('1')">1</button>
+        <button onclick="adicionar('2')">2</button>
+        <button onclick="adicionar('3')">3</button>
+        <button onclick="adicionar('.')">.</button>
+        
+        <button onclick="adicionar('0')">0</button>
+        <button onclick="calcular()" class="igual">=</button>
+    </div>
+</div>
+
+<script>
+    const display = document.getElementById('display');
+
+    function adicionar(valor) { display.value += valor; }
+    function limpar() { display.value = ''; }
+    function deletar() { display.value = display.value.slice(0, -1); }
+    function calcular() {
+        try { display.value = eval(display.value); }
+        catch { display.value = 'Erro'; }
+    }
+
+    // Suporte para teclado físico
+    document.addEventListener('keydown', (e) => {
+        if (e.key >= '0' && e.key <= '9' || e.key === '.') adicionar(e.key);
+        if (['+', '-', '*', '/'].includes(e.key)) adicionar(e.key);
+        if (e.key === 'Enter') calcular();
+        if (e.key === 'Backspace') deletar();
+        if (e.key === 'Escape') limpar();
+    });
+</script>
+</body>
+</html>
