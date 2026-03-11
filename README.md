@@ -11,4 +11,4 @@ A simple calculator builth with HTML.
 -HTML
 
 ## Live Demo
-https://lhznx9.github.io/simple-calculator-html
+https://lhznx9.github.io/simple-calculator.hmtl/
